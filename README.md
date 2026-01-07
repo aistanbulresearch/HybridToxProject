@@ -1,11 +1,12 @@
 # Beyond Deep Learning Dominance: A Scaffold-Aware Hybrid Framework for Robust Toxicity Prediction
 
-![Paper Status](https://img.shields.io/badge/Status-Under_Review-yellow.svg)
+![Paper Status](https://img.shields.io/badge/Status-Published-success)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1KfO0dgz_pjtEo2pWLDgEGO8wPFHGXxNH)
 [![Powered by RDKit](https://img.shields.io/badge/Powered%20by-RDKit-3838ff.svg)](https://www.rdkit.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > **Official Repository for the Paper:** *"Beyond Deep Learning Dominance: A Scaffold-Aware Hybrid Framework for Robust Toxicity Prediction in Data-Scarce Regimes"*
+[![DOI](https://img.shields.io/static/v1?label=DOI&message=10.26434/chemrxiv-2026-f6g15&color=blue)](https://doi.org/10.26434/chemrxiv-2026-f6g15)
 
 ## Overview
 
