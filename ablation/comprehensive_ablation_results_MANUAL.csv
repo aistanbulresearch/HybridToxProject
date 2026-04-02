@@ -1,0 +1,6 @@
+Task,Seed,Representation,Combination,Meta_Variant,LR_C,ROC_AUC,PR_AUC,MCC,Balanced_Acc
+NR-AhR,42,morgan,RF_only,single,,0.78129,0.455529,0.236128,0.543471
+NR-AhR,42,morgan,XGB_only,single,,0.759258,0.423824,0.32097,0.675522
+NR-AhR,42,Graph,GCN_only,single,,0.788847,0.447485,0.30057,0.635501
+NR-AhR,42,morgan,RF+GCN,averaging,,0.810136,0.506743,0.393708,0.611135
+NR-AhR,42,morgan,RF+GCN,voting,,0.667062,0.329859,0.4152,0.666322
