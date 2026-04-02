@@ -82,37 +82,31 @@ The project utilizes the **Tox21 Data Challenge** dataset. The comprehensive pre
   
 ## Repository Structure
 
+```text
 HybridToxProject/
-│
 ├── ablation/
 │   ├── ablation_checkpoints.csv
 │   ├── comprehensive_ablation_results_FINAL.csv
 │   ├── comprehensive_ablation_results_MANUAL.csv
 │   └── targeted_chirality_results.csv
-│
 ├── case_studies/
 │   ├── Figure4_FailSafe_Cases_NR-AhR.png
 │   └── override_analysis_NR-AhR_seed42.csv
-│
 ├── data/
 │   ├── test_external.csv
 │   ├── train_internal.csv
 │   └── validation.csv
-│
 ├── Results/
 │   ├── dataset_statistics.csv
 │   └── revised_full_benchmark (1).csv
-│
 ├── statistics/
 │   ├── dataset_and_ood_statistics.csv
 │   ├── statistical_tests_TOST_Cohens_d.csv
 │   └── statistical_tests_TOST_Cohens_d_FULL.csv
-│
 ├── .gitignore
 ├── HybridToxProject.ipynb
 ├── LICENSE
 └── README.md
-
 
 ## Citation
 
