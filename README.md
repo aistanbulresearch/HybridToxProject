@@ -107,6 +107,7 @@ HybridToxProject/
 ├── HybridToxProject.ipynb
 ├── LICENSE
 └── README.md
+```
 
 ## Citation
 
