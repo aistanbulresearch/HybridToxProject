@@ -1,61 +1,62 @@
 # Beyond Deep Learning Dominance: A Scaffold-Aware Hybrid Framework for Robust Toxicity Prediction
 
-![Paper Status](https://img.shields.io/badge/Status-Published-success)
+![Paper Status](https://img.shields.io/badge/Status-Under%20Review%20(JCIM)-orange)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1KfO0dgz_pjtEo2pWLDgEGO8wPFHGXxNH)
 [![Powered by RDKit](https://img.shields.io/badge/Powered%20by-RDKit-3838ff.svg)](https://www.rdkit.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-> **Official Repository for the Paper:** *"Beyond Deep Learning Dominance: A Scaffold-Aware Hybrid Framework for Robust Toxicity Prediction in Data-Scarce Regimes"*
+> [cite_start]**Official Repository for the Paper:** *"Beyond Deep Learning Dominance: A Scaffold-Aware Hybrid Framework for Robust Toxicity Prediction in Data-Scarce Regimes"* [cite: 1, 2]
 [![DOI](https://img.shields.io/static/v1?label=DOI&message=10.26434/chemrxiv-2026-f6g15&color=blue)](https://doi.org/10.26434/chemrxiv-2026-f6g15)
 
 ## Overview
 
-Computational toxicology faces a reliability crisis: deep learning models, despite their power, are prone to **"silent failures"** on out-of-distribution (OOD) data. This repository implements a **"Safe-by-Design" AI framework** that addresses this bottleneck in data-scarce regimes.
+[cite_start]Computational toxicology faces a reliability crisis: deep learning models, despite their power, are prone to **"silent failures"** yielding high-confidence errors on out-of-distribution (OOD) data[cite: 9, 10]. [cite_start]This repository implements a **"Safe-by-Design" AI framework** that addresses this bottleneck in data-scarce regimes[cite: 11].
 
-Instead of relying on a single "black-box" algorithm, we propose a **Hybrid Mixture of Experts (MoE)** architecture that manages epistemic uncertainty by integrating explicit structural memory with topological intuition.
+[cite_start]Instead of relying on a single algorithmic paradigm, we propose a **Hybrid Mixture of Experts (MoE)** architecture that manages epistemic uncertainty by integrating the explicit structural memory of classical ensembles (Random Forest & XGBoost) with the topological intuition of Graph Neural Networks (GNNs)[cite: 12, 112]. [cite_start]Benchmarking against a comprehensive suite of modern architectures (AttentiveFP, MPNN, GIN, ChemBERTa, and GraphConv) proves our framework offers a robust pathway to state-of-the-art predictive power while providing architectural safeguards[cite: 15, 17, 131].
 
 ---
 
 ## Theoretical Foundation: The "Tripartite Challenge"
 
-This framework is engineered to solve three specific theoretical limitations in QSAR modeling, as detailed in our manuscript:
+This framework is engineered to solve specific theoretical limitations in QSAR modeling, as validated in our manuscript:
 
-1.  **Validating against Prospective Difficulty (Sheridan et al.):** * We enforce a strict **Nested Scaffold Split**.
-    * *Metric:* Unlike random splits ($T_c > 0.80$), our test set maintains a mean Tanimoto similarity of **0.44** to the training set, proving true OOD evaluation.
+1.  **Validating against Prospective Difficulty (Sheridan et al.):**
+    * [cite_start]We enforce a strict **Nested Scaffold Split**[cite: 40].
+    * [cite_start]*Metric:* Unlike random splits where structural analogs are uniformly distributed, our external test set maintains a consistently high average OOD Tanimoto distance of ~0.64 (equating to a mean structural similarity of only 0.36) globally across all 12 Tox21 endpoints, proving rigorous prospective evaluation[cite: 27, 98].
 2.  **Navigating Activity Cliffs (Maggiora et al.):**
-    * Deep learning often smooths over sharp discontinuities. We utilize **Random Forests** as "Activity Cliff Detectors," where a single bit-flip in a fingerprint can alter the decision path.
+    * [cite_start]Deep learning models often enforce topological smoothness[cite: 34]. [cite_start]We utilize classical models utilizing fixed-length molecular fingerprints as "Activity Cliff Detectors," where a single bit-flip (representing a minute structural change) can route the molecule down a divergent decision branch[cite: 32, 34, 35].
 3.  **Mitigating Over-Smoothing (Chen et al.):**
-    * Deep GNNs can "wash out" fine-grained features (e.g., steric constraints in Ligand Binding Domains). Our hybrid approach prevents this by explicitly retaining discrete chemical features.
+    * [cite_start]Deep GNNs can "wash out" fine-grained features through iterative message passing[cite: 30, 348]. [cite_start]Our hybrid approach mitigates this by reintroducing the discrete decision logic of classical ensembles as an architectural safeguard[cite: 371, 372].
 
 ---
 
 ## The Architecture
 
-Our **Mixture of Experts (MoE)** meta-learner arbitrates between two complementary inductive biases:
+[cite_start]Our **Mixture of Experts (MoE)** meta-learner arbitrates between three complementary experts to ensure diverse error distributions[cite: 112]:
 
-### 1. The "Specific Guard" (Random Forest)
-* **Role:** Explicit Memory & Precision.
-* **Mechanism:** Uses 2048-bit Morgan Fingerprints to identify known toxicophores.
-* **Function:** Acts as a conservative filter, pruning hallucinations (False Positives) generated by the GNN.
+### 1. The "Specific Guards" (Random Forest & XGBoost)
+* [cite_start]**Role:** Explicit Memory & Precision[cite: 243, 333].
+* [cite_start]**Mechanism:** Uses 2048-bit Morgan Fingerprints (ECFP4 equivalent) to identify known toxicophores explicitly[cite: 106, 264].
+* [cite_start]**Function:** Act as conservative filters rooted in statistical evidence, effectively pruning hallucinations (False Positives) generated by pure deep learning models[cite: 333, 334].
 
 ### 2. The "Sensitive Scout" (Advanced GNN)
-* **Role:** Topological Intuition & Recall.
-* **Mechanism:** A custom Graph Convolutional Network (GCN) designed to capture global reactivity patterns.
-* **Function:** Detects toxicity in novel scaffolds where explicit substructure matches are absent.
+* [cite_start]**Role:** Topological Intuition & Recall[cite: 243, 331].
+* [cite_start]**Mechanism:** A standard 3-layer Graph Convolutional Network (GCN) designed with a "Rich Feature" matrix to mitigate over-smoothing[cite: 109, 120, 122].
+* [cite_start]**Function:** Excels at detecting global patterns and inferring toxicity in novel scaffolds where exact substructural matches are absent[cite: 331, 332].
 
-### 3. The Meta-Learner (Logistic Stacking)
-* **Role:** Reliability Arbitration.
-* **Mechanism:** Dynamically weights the experts based on the validation set performance, pivoting to the most robust model for the specific task.
+### 3. The Meta-Learner (L2-Regularized Logistic Stacking)
+* [cite_start]**Role:** Reliability Arbitration[cite: 42, 128].
+* [cite_start]**Mechanism:** An L2-regularized Logistic Regression model dynamically weights the probabilistic outputs of the three experts based on validation set performance[cite: 72, 127].
 
 ---
 
-## Key Results & Robustness
+## Key Results & Comprehensive SOTA Benchmarking
 
-Evaluated across **12 Tox21 endpoints** using a 5-seed average protocol:
+[cite_start]Evaluated across all **12 Tox21 endpoints** using a rigorous 5-seed benchmarking protocol against modern deep learning architectures (AttentiveFP, ChemBERTa, GIN, MPNN)[cite: 13, 44]:
 
-* **Fail-Safe Mechanism:** In the *NR-AR-LBD* task, where the pure GNN collapsed (AUC 0.634) due to signal over-smoothing, the Hybrid MoE recovered performance to **0.746**, surpassing the SOTA baseline.
-* **Statistical Equivalence:** Achieved global performance statistically equivalent ($p > 0.05$) to the industry-standard **DeepChem GraphConv** model.
-* **The "Safety Cost" (Minimax Principle):** While we observe minor negative transfer in structurally homogeneous tasks (e.g., *NR-PPAR-gamma*), this is accepted as a calculated cost to ensure **prevention of catastrophic failure** in complex, high-risk endpoints.
+* [cite_start]**Superiority in PR-AUC (Handling Class Imbalance):** While Two One-Sided Tests (TOST) confirmed statistical equivalence in ROC-AUC general predictive capacity, the Hybrid framework demonstrated **strict statistical superiority** in the PR-AUC domain against pure deep learning baselines[cite: 15, 288, 289]. [cite_start]It achieved large positive effect sizes (e.g., Cohen's d = +0.75 against AttentiveFP, and +1.10 against GIN)[cite: 16].
+* [cite_start]**The Fail-Safe Mechanism (Preventing Model Collapse):** In the *NR-AR-LBD* task, standalone GNNs exhibited significant degradation (AUC 0.634) and heavily parameterized architectures like GIN experienced catastrophic model collapse (AUC 0.357)[cite: 293, 346]. [cite_start]The Hybrid MoE autonomously pivoted to the explicit memory of the classical components, successfully recovering performance to **0.745**[cite: 366].
+* [cite_start]**The "Safety Cost" (Minimax Principle):** We observed a case of negative transfer in *NR-PPAR-gamma* (Hybrid: 0.637 vs SOTA benchmark: 0.684)[cite: 298]. [cite_start]Adhering to the Minimax Principle, this is accepted as a calculated expense to ensure superior predictive stability and prevent catastrophic silent failures across more volatile toxicological spectrums[cite: 300, 301].
 
 ---
 
@@ -67,43 +68,52 @@ Evaluated across **12 Tox21 endpoints** using a 5-seed average protocol:
 * DeepChem
 * RDKit
 * Scikit-Learn
+* XGBoost
 
 ### Quick Start with Google Colab
-The easiest way to reproduce our results and visualize the "Scout vs. Guard" behavior is via our interactive notebook:
+The easiest way to reproduce our 5-seed benchmarking results and visualize the "Scout vs. Guard" fail-safe mechanism is via our interactive notebook:
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1KfO0dgz_pjtEo2pWLDgEGO8wPFHGXxNH)
 
-### Dataset
-The project utilizes the **Tox21 Data Challenge** dataset. The preprocessing pipeline (included in the notebook) performs:
-1.  Salt Stripping & Solvent Removal
-2.  Canonicalization (RDKit, `includeChirality=False`)
-3.  Deduplication & Inconclusive label removal
-
+### Dataset & Preprocessing Details
+[cite_start]The project utilizes the **Tox21 Data Challenge** dataset[cite: 50]. [cite_start]The comprehensive preprocessing pipeline performs[cite: 53]:
+1.  [cite_start]Salt Stripping & Solvent Removal[cite: 54, 55].
+2.  [cite_start]**Canonicalization (Chiral-Agnostic):** Standardized with `includeChirality=False`[cite: 56]. [cite_start]A targeted ablation study confirmed that integrating explicit stereochemical features introduced severe feature sparsity that actively degraded out-of-distribution generalization[cite: 57, 58, 59].
+3.  [cite_start]Deduplication & removal of inconclusive labels[cite: 61].
 ---
 
 ## Repository Structure
-```text
+
 HybridToxProject/
 │
+├── ablation/
+│   ├── ablation_checkpoints.csv
+│   ├── comprehensive_ablation_results_FINAL.csv
+│   ├── comprehensive_ablation_results_MANUAL.csv
+│   └── targeted_chirality_results.csv
+│
+├── case_studies/
+│   ├── Figure4_FailSafe_Cases_NR-AhR.png
+│   └── override_analysis_NR-AhR_seed42.csv
+│
 ├── data/
+│   ├── test_external.csv
 │   ├── train_internal.csv
-│   ├── validation.csv
-│   └── test_external.csv
+│   └── validation.csv
 │
-├── results/
-│   ├── grand_slam_results_full.csv  
-│   ├── final_stats.pkl
-│   └── final_experiment_data.pkl
+├── Results/
+│   ├── dataset_statistics.csv
+│   └── revised_full_benchmark (1).csv
 │
-├── figures/
-│   ├── Figure_Schematic.png
-│   ├── Figure1_Performance.png
-│   ├── Figure2_Correlation.png
-│   ├── Figure3_Metrics.png
-│   └── Figure4_CaseStudy.png
+├── statistics/
+│   ├── dataset_and_ood_statistics.csv
+│   ├── statistical_tests_TOST_Cohens_d.csv
+│   └── statistical_tests_TOST_Cohens_d_FULL.csv
 │
-├── README.md  
-└── main_notebook.ipynb
+├── .gitignore
+├── HybridToxProject.ipynb
+├── LICENSE
+└── README.md
 ```
 
 
