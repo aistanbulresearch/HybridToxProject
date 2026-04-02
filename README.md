@@ -112,14 +112,13 @@ HybridToxProject/
 ├── HybridToxProject.ipynb
 ├── LICENSE
 └── README.md
-```
 
 
 ## Citation
 
 If you use this code or framework in your research, please cite our preprint (currently under review at JCIM):
 
-```bibtex
+
 @article{cavus2026beyond,
   title={Beyond Deep Learning Dominance: A Scaffold-Aware Hybrid Framework for Robust Toxicity Prediction in Data-Scarce Regimes},
   author={Cavus, Ozge A. and Kuskucu, Aysegul},
@@ -128,7 +127,6 @@ If you use this code or framework in your research, please cite our preprint (cu
   doi={10.26434/chemrxiv-2026-f6g15},
   note={Under review at Journal of Chemical Information and Modeling (JCIM)}
 }
-```
 
 ## Acknowledgments 
 
